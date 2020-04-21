@@ -15,14 +15,17 @@ import Sign from './containers/sign/sign'
 import Main from './containers/main/main'
 
 // 引入通用less
-import './assets/less/mixin.less'
+import './assets/less/all.less'
+
+// 在入口js引入socket.io的test，这样才能被打包运行
+// import './socket-test/test'
 
 ReactDOM.render((
     <Provider store={store} >
         <HashRouter>
             <Switch>
-                <Route path='/login' component={Login} />
                 <Route path='/sign' component={Sign} />
+                <Route path='/login' component={Login} />
                 <Route path='/' component={Main} />
             </Switch>
         </HashRouter>

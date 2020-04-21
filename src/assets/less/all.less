@@ -1,0 +1,63 @@
+@page-size:375px;
+html{
+    font-size:100vw/@page-size
+}
+.errorMsg{
+    position: absolute;
+    background-color: rgb(230, 13, 13);
+    width: 344rem;
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    left: 50%;
+    transform: translateX(-50%);
+    top:285rem;
+}
+.am-tab-bar{
+    position: fixed;
+    z-index: 99;
+    bottom: 0;
+    width: 100%;
+    height: inherit;    //因为元素默认高度为100%挡住了其他元素，所以要设为内容高度
+    /* inherit为从父元素继承 height 属性的值。从字面上理解和100%并无不同，但是因为这两个是计算值，在某些属性变化后就有所不同了 */
+    // 网上的一篇博客有说道——当子元素为绝对定位元素，同时，父容器的position值为static的时候
+        // 100%：高度就是父元素的高度100%   inherit：高度为自适应
+}
+.top-fixed-bar{
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    width: 100%;
+    // height: inherit;    //因为元素默认高度为100%挡住了其他元素，所以要设为内容高度
+}
+/* .chat-from-me .am-list-line{
+    justify-content: flex-end;
+}
+.chat-from-me .am-list-line .am-list-content{
+    flex: 0 1 auto;
+    // white-space:normal;
+    // overflow: auto;
+}
+.chat-to-me .am-list-line{
+    justify-content: flex-start;
+}
+.chat-to-me .am-list-line .am-list-content{
+    flex: 0 1 auto;
+    white-space:normal;
+    // overflow: auto;
+    height: inherit;
+    // text-overflow: inherit;
+}
+.chat-from-me .am-list-line .am-list-extra{
+    flex-basis:10%;
+} */
+// 上面的一些样式想实现多行文本，用antd就可以完成，其实其内置的许多属性都很不错了
+.chat-from-me .am-list-line{
+    justify-content: flex-end;
+}
+.chat-from-me .am-list-line .am-list-extra{
+    flex-basis:10%;
+} 
+.chat-from-me .am-list-line .am-list-content{
+    flex: 0 1 auto;
+}

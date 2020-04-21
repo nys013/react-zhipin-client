@@ -1,10 +1,17 @@
 import React,{Component} from 'react'
 import {NavBar,WingBlank,List,InputItem,WhiteSpace,Button,Radio,Toast} from 'antd-mobile'
+// connect连接组件和store（action和reducer）
+import {connect} from 'react-redux'
+// 引入路由重定向标签
+import {Redirect} from 'react-router-dom'
 
+// LOGO
 import Logo from '../../components/logo/logo'
+// 引入sign注册异步action
+import {sign} from '../../redux/actions'
 
 const ListItem = List.Item
-export default class Sign extends Component {
+class Sign extends Component {
     // state状态
     state = {
         username:"",
@@ -21,8 +28,8 @@ export default class Sign extends Component {
     // 这里要用箭头函数，因为这里this指向的应该是点击对象（但好像是因为封装的关系，实际上是undefined）
     // 所以其实为了方便，可都用箭头函数的写法
     sign = () => {
-        const {username,password,password2} = this.state
-        // 表单验证
+        const {username,password,password2,type} = this.state
+        // 表单验证（与login不同，在这里做表单验证（两种方式应当统一选择其中一种，这是仅为显示不同效果）
         if (!username) {
             Toast.info("用户名不能为空",1)
         }else if( !password || !password2){
@@ -34,17 +41,19 @@ export default class Sign extends Component {
         }else if(!/^\d{3,}$/.test(password)){
             Toast.info("密码至少3位",1)
         }else{
-            Toast.success("注册成功",2)
             // 后台交互
-            console.log("后台交互",this.state)
+            this.props.sign({username,password,type})
         }
         
 
     }
     render(){
         const {type} = this.state
+        const {user} = this.props
         return (
             <div>
+                {/* 重定向的两种写法，另一种见login，原理一样，只是写法小小小小的不同而已 */}
+                {user.redirectTo && (<Redirect to={user.redirectTo}/>)}
                 <NavBar>硅谷直聘</NavBar>
                 <Logo />
                 <WingBlank>
@@ -70,3 +79,8 @@ export default class Sign extends Component {
     }
 }
 
+// connect使组件和store连接
+export default connect(
+    state => ({user:state.user}),
+    {sign}
+)(Sign)
